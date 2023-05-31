@@ -7,8 +7,6 @@ type Props = {
   };
 };
 
-export const revalidate = 0;
-
 export default async function Page({ params }: Props) {
   let memoId: number = Number(params.slug);
   if (Number.isNaN(memoId)) {

@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={`${inter.className} p-4 bg-slate-100`}>
-        <div className="max-w-lg mx-auto space-y-6">
+        <div className="max-w-xl mx-auto space-y-6">
           <Header />
           <main>{children}</main>
         </div>
