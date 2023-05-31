@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/share/components/Button";
+import { CheckIcon, TrashIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 
 // TODO: onEdit,onSubmit,onDeleteの出し分け
@@ -19,32 +20,32 @@ export function ToolBar({
   onSubmit?: JSX.IntrinsicElements["button"]["onClick"];
   onDelete?: JSX.IntrinsicElements["button"]["onClick"];
 }) {
+  const style = "w-fit h-fit p-2.5 rounded-full";
+
   return (
-    <div className="sticky top-4 flex flex-col space-y-4">
+    <div className="sticky top-10 flex flex-col space-y-4 mt-16">
       {isEdit || isNew ? (
-        <Button
-          buttonType="button"
-          className="bg-sky-50 text-sky-600 border border-sky-500 rounded-3xl hover:bg-sky-100"
+        <button
+          className={`bg-sky-50 text-sky-600 border border-sky-500 hover:bg-sky-100 ${style}`}
           onClick={onSubmit}
         >
-          Save
-        </Button>
+          <CheckIcon width="28" height="28" />
+        </button>
       ) : (
         <Link
           href={`/memo/edit/${memoId}`}
-          className="px-4 py-2 font-semibold drop-shadow-md bg-sky-50 text-sky-600 border border-sky-500 rounded-3xl hover:bg-sky-100 text-center"
+          className="p-4 font-semibold drop-shadow-md bg-sky-50 text-sky-600 border border-sky-500 rounded-3xl hover:bg-sky-100 text-center"
         >
           Edit
         </Link>
       )}
       {!isNew && (
-        <Button
-          buttonType="button"
-          className="bg-red-50 rounded-3xl border text-red-600 border-red-500 hover:bg-red-100"
+        <button
+          className={`bg-red-50 border text-red-600 border-red-500 hover:bg-red-100 ${style}`}
           onClick={onDelete}
         >
-          Delete
-        </Button>
+          <TrashIcon width="28" height="28" />
+        </button>
       )}
     </div>
   );

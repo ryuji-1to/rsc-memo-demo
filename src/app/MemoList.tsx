@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import Link from "next/link";
 
 export async function MemoList() {
-  const allMemo = await fetchAllMemo({ delayMs: 1000 });
+  const allMemo = await fetchAllMemo();
 
   return (
     <div className="bg-white p-4 rounded-lg drop-shadow-sm">

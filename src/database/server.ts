@@ -13,7 +13,13 @@ export async function fetchAllMemo(option?: { delayMs?: number }) {
   const { delayMs = 0 } = option || {};
   try {
     await sleep(delayMs);
-    const allMemo = await prisma.memo.findMany();
+    const allMemo = await prisma.memo.findMany({
+      orderBy: [
+        {
+          updatedAt: "desc",
+        },
+      ],
+    });
     return allMemo;
   } catch {
     return [];
