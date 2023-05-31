@@ -13,7 +13,7 @@ export default async function Page({ params }: Props) {
     return <div>No memo...</div>;
   }
 
-  const memo = await fetchMemoById(memoId, { delayMs: 1000 });
+  const memo = await fetchMemoById(memoId);
 
   if (!memo) {
     return <div>No memo...</div>;

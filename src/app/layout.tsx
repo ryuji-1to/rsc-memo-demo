@@ -15,10 +15,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <body className={`${inter.className} p-4 bg-slate-100`}>
-        <div className="max-w-xl mx-auto space-y-6">
+      <body className={`${inter.className} bg-slate-100`}>
+        <div className="space-y-6">
           <Header />
-          <main>{children}</main>
+          <main className="max-w-2xl mx-auto p-4">{children}</main>
         </div>
       </body>
     </html>
