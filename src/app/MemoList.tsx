@@ -11,7 +11,7 @@ export async function MemoList() {
       <List>
         {allMemo.map((memo) => (
           <Link key={memo.id} href={`/memo/${memo.id}`}>
-            <section className="">
+            <section>
               <h2 className="text-xl font-semibold text-slate-600 line-clamp-1 break-all">
                 {memo.title}
               </h2>

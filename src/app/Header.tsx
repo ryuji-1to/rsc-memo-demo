@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/share/components/Button";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
 
@@ -17,13 +16,12 @@ export function Header() {
           {segment === "new" ? "New Memo" : "My Memo"}
         </h1>
         {segment === null && (
-          <Button
-            buttonType="link"
-            className="absolute right-1 bg-blue-500 rounded-xl text-white"
+          <Link
             href="/new"
+            className="absolute right-1 bg-blue-500 rounded-xl text-white py-2 px-4 font-semibold"
           >
             New
-          </Button>
+          </Link>
         )}
       </div>
     </header>

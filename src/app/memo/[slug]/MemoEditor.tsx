@@ -7,9 +7,11 @@ import { ToolBar } from "./ToolBar";
 
 export function MemoEditor({
   isNew = false,
+  isEdit = false,
   memo,
 }: {
   isNew?: boolean;
+  isEdit?: boolean;
   memo?: Memo;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -40,7 +42,7 @@ export function MemoEditor({
         />
       </div>
       <nav>
-        <ToolBar isNew={isNew} />
+        <ToolBar memoId={memo?.id ?? 1} isNew={isNew} isEdit={isEdit} />
       </nav>
     </div>
   );

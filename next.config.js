@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
-  experimental: { typedRoutes: true, serverActions: true },
+  experimental: { typedRoutes: false, serverActions: true },
 };
 
 module.exports = nextConfig;
