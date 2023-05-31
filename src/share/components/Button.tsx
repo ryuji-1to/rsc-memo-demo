@@ -16,7 +16,7 @@ export function Button(props: Props) {
     return (
       <button
         {...rest}
-        className={`px-3.5 py-2  font-semibold drop-shadow-md ${className}`}
+        className={`px-4 py-2  font-semibold drop-shadow-md ${className}`}
       >
         {children}
       </button>
@@ -26,7 +26,7 @@ export function Button(props: Props) {
     return (
       <Link
         {...rest}
-        className={`px-3.5 py-2  font-semibold drop-shadow-md ${className}`}
+        className={`px-4 py-2  font-semibold drop-shadow-md ${className}`}
       >
         {children}
       </Link>

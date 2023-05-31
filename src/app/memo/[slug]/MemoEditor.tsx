@@ -14,6 +14,7 @@ export function MemoEditor({
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
   useEffect(() => {
     if (isNew) {
       inputRef.current?.focus();
@@ -29,7 +30,7 @@ export function MemoEditor({
           type="text"
           className="outline-none w-full px-6 py-3 font-semibold text-[#252525] text-2xl rounded-lg bg-transparent"
           defaultValue={memo?.title || ""}
-          placeholder="This is Title"
+          placeholder="This is Title..."
         />
         <TextareaAutosize
           ref={textareaRef}
