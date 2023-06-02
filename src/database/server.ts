@@ -37,4 +37,4 @@ export async function fetchMemoById(id: number, option?: Option) {
   return memo;
 }
 
-export async function deleteMemoOnServer(id: number) {}
+export async function deleteMemoOnServer(formData: FormData) {}

@@ -6,6 +6,10 @@ import Link from "next/link";
 export async function MemoList() {
   const allMemo = await fetchAllMemo();
 
+  if (allMemo.length === 0) {
+    return <div>No memo...</div>;
+  }
+
   return (
     <div className="bg-white p-4 rounded-lg drop-shadow-sm">
       <List>
