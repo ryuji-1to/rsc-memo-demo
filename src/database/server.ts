@@ -3,17 +3,17 @@
 import { sleep } from "@/util/sleep";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+const db = new PrismaClient();
 
 type Option = {
   delayMs?: number;
 };
 
-export async function fetchAllMemo(option?: { delayMs?: number }) {
+export async function fetchAllMemo(option?: Option) {
   const { delayMs = 0 } = option || {};
   try {
     await sleep(delayMs);
-    const allMemo = await prisma.memo.findMany({
+    const allMemo = await db.memo.findMany({
       orderBy: [
         {
           updatedAt: "desc",
@@ -29,7 +29,7 @@ export async function fetchAllMemo(option?: { delayMs?: number }) {
 export async function fetchMemoById(id: number, option?: Option) {
   const { delayMs = 0 } = option || {};
   await sleep(delayMs);
-  const memo = await prisma.memo.findUnique({
+  const memo = await db.memo.findUnique({
     where: {
       id,
     },
@@ -37,4 +37,4 @@ export async function fetchMemoById(id: number, option?: Option) {
   return memo;
 }
 
-export async function createNewMemo() {}
+export async function deleteMemoOnServer(id: number) {}

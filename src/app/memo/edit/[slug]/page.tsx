@@ -8,7 +8,8 @@ type Props = {
 };
 
 export default async function Page({ params }: Props) {
-  let memoId: number = Number(params.slug);
+  let memoId: number = Number.parseInt(params.slug);
+
   if (Number.isNaN(memoId)) {
     return <div>No memo...</div>;
   }
@@ -19,6 +20,5 @@ export default async function Page({ params }: Props) {
     return <div>No memo...</div>;
   }
 
-  // @ts-ignore
-  return <MemoEditor isEdit memo={memo} />;
+  return <MemoEditor memo={memo} />;
 }

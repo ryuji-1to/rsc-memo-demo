@@ -1,50 +1,38 @@
 "use client";
 
-import { Button } from "@/share/components/Button";
-import { CheckIcon, TrashIcon } from "@radix-ui/react-icons";
-import Link from "next/link";
-
-// TODO: onEdit,onSubmit,onDeleteの出し分け
-type Props = {};
+import { usePathname } from "next/navigation";
 
 export function ToolBar({
-  isNew = false,
-  isEdit = false,
   onSubmit,
   onDelete,
-  memoId,
+  onEdit,
 }: {
-  isNew?: boolean;
-  isEdit?: boolean;
-  memoId: number;
   onSubmit?: JSX.IntrinsicElements["button"]["onClick"];
   onDelete?: JSX.IntrinsicElements["button"]["onClick"];
+  onEdit?: JSX.IntrinsicElements["button"]["onClick"];
 }) {
-  const style = "w-fit h-fit p-2.5 rounded-full";
+  const pathname = usePathname();
+  const isNew = pathname.includes("/new");
+  const isEdit = pathname.includes("/edit");
+  const style =
+    "drop-shadow-md space-x-1 py-2 px-3 rounded-xl flex justify-center items-center font-semibold";
 
   return (
     <div className="sticky top-10 flex flex-col space-y-4 mt-16">
-      {isEdit || isNew ? (
+      {(isNew || isEdit) && (
         <button
-          className={`bg-sky-50 text-sky-600 border border-sky-500 hover:bg-sky-100 ${style}`}
-          onClick={onSubmit}
+          className={`bg-emerald-50 text-emerald-600 border border-emerald-500 hover:bg-emerald-100 ${style}`}
+          onClick={isEdit ? onEdit : onSubmit}
         >
-          <CheckIcon width="28" height="28" />
+          Save
         </button>
-      ) : (
-        <Link
-          href={`/memo/edit/${memoId}`}
-          className="p-4 font-semibold drop-shadow-md bg-sky-50 text-sky-600 border border-sky-500 rounded-3xl hover:bg-sky-100 text-center"
-        >
-          Edit
-        </Link>
       )}
       {!isNew && (
         <button
           className={`bg-red-50 border text-red-600 border-red-500 hover:bg-red-100 ${style}`}
           onClick={onDelete}
         >
-          <TrashIcon width="28" height="28" />
+          Delete
         </button>
       )}
     </div>

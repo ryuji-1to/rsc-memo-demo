@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import { Header } from "./Header";
 import "./globals.css";
 import { Inter } from "next/font/google";
@@ -20,6 +21,7 @@ export default function RootLayout({
           <Header />
           <main className="max-w-2xl mx-auto p-4">{children}</main>
         </div>
+        <Toaster position="top-right" reverseOrder={false} />
       </body>
     </html>
   );

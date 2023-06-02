@@ -1,5 +1,5 @@
 import { fetchMemoById } from "@/database/server";
-import { MemoEditor } from "./MemoEditor";
+import { MemoPreview } from "./MemoPreview";
 
 type Props = {
   params: {
@@ -19,6 +19,5 @@ export default async function Page({ params }: Props) {
     return <div>No memo...</div>;
   }
 
-  // @ts-ignore
-  return <MemoEditor memo={memo} />;
+  return <MemoPreview memo={memo} />;
 }
