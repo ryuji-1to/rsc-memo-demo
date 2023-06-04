@@ -3,7 +3,7 @@
 import { Memo } from "@prisma/client";
 import TextareaAutosize from "react-textarea-autosize";
 import { ToolBar } from "./ToolBar";
-import { useEditor } from "./use-editor";
+import { useEditor } from "../hooks/use-editor";
 
 export function MemoEditor({ memo }: { memo?: Memo }) {
   return memo ? <EditMemoEditor memo={memo} /> : <NewMemoEditor />;
@@ -21,17 +21,10 @@ function NewMemoEditor() {
       {(stuff) => (
         <>
           <div className="space-y-4">
-            <input
-              type="text"
-              ref={stuff.inputRef}
-              className={inputStyle}
-              placeholder="This is Title..."
-            />
+            <input className={inputStyle} {...stuff.inputAttributes()} />
             <TextareaAutosize
-              ref={stuff.textareaRef}
               className={textareaStyle}
-              placeholder="Write a memo!"
-              minRows={5}
+              {...stuff.textareaAttributes()}
             />
           </div>
           <nav>
@@ -49,19 +42,10 @@ function EditMemoEditor({ memo }: { memo: Memo }) {
       {(stuff) => (
         <>
           <div className="space-y-4">
-            <input
-              type="text"
-              ref={stuff.inputRef}
-              className={inputStyle}
-              defaultValue={memo.title}
-              placeholder="This is Title..."
-            />
+            <input className={inputStyle} {...stuff.inputAttributes()} />
             <TextareaAutosize
-              ref={stuff.textareaRef}
               className={textareaStyle}
-              placeholder="Write a memo!"
-              defaultValue={memo.content ?? ""}
-              minRows={5}
+              {...stuff.textareaAttributes()}
             />
           </div>
           <nav>

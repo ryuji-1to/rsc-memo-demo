@@ -1,5 +1,5 @@
 import { fetchMemoById } from "@/database/server";
-import { MemoPreview } from "./MemoPreview";
+import { MemoPreview } from "../_feature/components/MemoPreview";
 
 type Props = {
   params: {
@@ -8,13 +8,12 @@ type Props = {
 };
 
 export default async function Page({ params }: Props) {
-  let memoId: number = Number(params.slug);
+  let memoId = Number.parseInt(params.slug);
   if (Number.isNaN(memoId)) {
     return <div>No memo...</div>;
   }
 
   const memo = await fetchMemoById(memoId);
-
   if (!memo) {
     return <div>No memo...</div>;
   }

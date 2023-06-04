@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { MemoList } from "./MemoList";
+import { MemoList } from "./_feature/components/MemoList";
 
 export const revalidate = 0;
 

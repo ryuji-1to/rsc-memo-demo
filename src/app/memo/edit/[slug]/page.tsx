@@ -1,5 +1,5 @@
 import { fetchMemoById } from "@/database/server";
-import { MemoEditor } from "../../[slug]/MemoEditor";
+import { MemoEditor } from "../../_feature/components/MemoEditor";
 
 type Props = {
   params: {

@@ -2,20 +2,34 @@ import { createMemo } from "@/database/client";
 import { sleep } from "@/util/sleep";
 import { Memo } from "@prisma/client";
 import { usePathname, useRouter } from "next/navigation";
-import { MutableRefObject, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { toast } from "react-hot-toast";
+
+type InputAttributes = (type?: JSX.IntrinsicElements["input"]["type"]) => {
+  type: JSX.IntrinsicElements["input"]["type"];
+  ref: React.RefObject<HTMLInputElement>;
+  placeholder: string;
+  defaultValue?: string;
+};
+
+type TextareaAttributes = (minRows?: number) => {
+  ref: React.RefObject<HTMLTextAreaElement>;
+  placeholder: string;
+  minRows: number;
+  defaultValue?: string;
+};
 
 type Return<T extends Memo | undefined> = T extends Memo
   ? {
-      inputRef: MutableRefObject<HTMLInputElement>;
-      textareaRef: MutableRefObject<HTMLTextAreaElement>;
+      inputAttributes: InputAttributes;
+      textareaAttributes: TextareaAttributes;
       handleEdit: () => Promise<void>;
       handleDelete: () => Promise<void>;
     }
   : T extends undefined
   ? {
-      inputRef: MutableRefObject<HTMLInputElement>;
-      textareaRef: MutableRefObject<HTMLTextAreaElement>;
+      inputAttributes: InputAttributes;
+      textareaAttributes: TextareaAttributes;
       handleSubmit: () => Promise<void>;
     }
   : never;
@@ -35,6 +49,34 @@ export function useEditor<T extends Memo | undefined = undefined>(
     // eslint-disable-next-line
   }, []);
 
+  const inputAttributes = (type = "text") => {
+    const common = {
+      type,
+      ref: inputRef,
+      placeholder: "This is title...",
+    };
+    return memo
+      ? {
+          ...common,
+          defaultValue: memo.title,
+        }
+      : common;
+  };
+
+  const textareaAttributes = (minRows = 5) => {
+    const common = {
+      ref: textareaRef,
+      placeholder: "Write a memo!",
+      minRows,
+    };
+    return memo
+      ? {
+          ...common,
+          defaultValue: memo.content ?? "",
+        }
+      : common;
+  };
+
   if (memo) {
     const handleEdit = async () => {
       console.log("edit");
@@ -43,10 +85,10 @@ export function useEditor<T extends Memo | undefined = undefined>(
       console.log("delete");
     };
     return {
-      inputRef,
-      textareaRef,
       handleEdit,
       handleDelete,
+      inputAttributes,
+      textareaAttributes,
     } as Return<T>;
   } else {
     const handleSubmit = async () => {
@@ -66,6 +108,10 @@ export function useEditor<T extends Memo | undefined = undefined>(
           router.replace("/");
         });
     };
-    return { inputRef, textareaRef, handleSubmit } as Return<T>;
+    return {
+      handleSubmit,
+      inputAttributes,
+      textareaAttributes,
+    } as Return<T>;
   }
 }
