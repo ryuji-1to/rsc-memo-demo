@@ -21,6 +21,7 @@ export function ToolBar({
     <div className="sticky top-10 flex flex-col space-y-4 mt-16">
       {(isNew || isEdit) && (
         <button
+          type="button"
           className={`bg-emerald-50 text-emerald-600 border border-emerald-500 hover:bg-emerald-100 ${style}`}
           onClick={isEdit ? onEdit : onSubmit}
         >
@@ -29,6 +30,7 @@ export function ToolBar({
       )}
       {!isNew && (
         <button
+          type="button"
           className={`bg-red-50 border text-red-600 border-red-500 hover:bg-red-100 ${style}`}
           onClick={onDelete}
         >

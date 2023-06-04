@@ -3,9 +3,20 @@
 import Link from "next/link";
 import { useRouter, useSelectedLayoutSegment } from "next/navigation";
 
+type A<T> = T extends true
+  ? string
+  : T extends false | undefined
+  ? number
+  : never;
+
+function useS<T extends boolean | undefined>(isStr?: T): A<T> {
+  return isStr ? ("1" as A<T>) : (1 as A<T>);
+}
+
 export function Header() {
   const segment = useSelectedLayoutSegment();
   const router = useRouter();
+  const a = useS();
 
   return (
     <header className="shadow-md py-2">
