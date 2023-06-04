@@ -1,4 +1,4 @@
-import { fetchMemoById } from "@/database/server";
+import { fetchMemoById } from "@/api/server";
 import { MemoPreview } from "../_feature/components/MemoPreview";
 
 type Props = {

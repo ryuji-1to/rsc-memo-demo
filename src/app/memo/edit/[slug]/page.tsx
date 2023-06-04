@@ -1,4 +1,4 @@
-import { fetchMemoById } from "@/database/server";
+import { fetchMemoById } from "@/api/server";
 import { MemoEditor } from "../../_feature/components/MemoEditor";
 
 type Props = {

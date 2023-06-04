@@ -1,8 +1,9 @@
-import { createMemo } from "@/database/client";
+import { createMemo, deleteMemo, updateMemo } from "@/api/client";
 import { sleep } from "@/util/sleep";
 import { Memo } from "@prisma/client";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { flushSync } from "react-dom";
 import { toast } from "react-hot-toast";
 
 type InputAttributes = (type?: JSX.IntrinsicElements["input"]["type"]) => {
@@ -79,11 +80,38 @@ export function useEditor<T extends Memo | undefined = undefined>(
 
   if (memo) {
     const handleEdit = async () => {
-      console.log("edit");
+      const title = inputRef.current?.value;
+      const content = textareaRef.current?.value;
+      if (!title) {
+        return toast.error("Title is needed!!");
+      }
+      await toast.promise(updateMemo(memo.id, { title, content }), {
+        loading: "Saving...",
+        success: "Got it!",
+        error: "Ohhh Error...",
+      });
+      await sleep(1000);
+      // not good 😾
+      flushSync(() => {
+        router.replace(`/memo/${memo.id}`);
+        router.refresh();
+      });
     };
+
     const handleDelete = async () => {
-      console.log("delete");
+      await toast.promise(deleteMemo(memo.id), {
+        loading: "Saving...",
+        success: "Got it!",
+        error: "Ohhh Error...",
+      });
+      await sleep(1000);
+      // not good 😾
+      flushSync(() => {
+        router.replace(`/`);
+        router.refresh();
+      });
     };
+
     return {
       handleEdit,
       handleDelete,
@@ -97,17 +125,19 @@ export function useEditor<T extends Memo | undefined = undefined>(
       if (!title) {
         return toast.error("Title is needed!!");
       }
-      toast
-        .promise(createMemo({ title, content }), {
-          loading: "Saving...",
-          success: "Got it!",
-          error: "Ohhh Error...",
-        })
-        .then(async () => {
-          await sleep(1000);
-          router.replace("/");
-        });
+      await toast.promise(createMemo({ title, content }), {
+        loading: "Saving...",
+        success: "Got it!",
+        error: "Ohhh Error...",
+      });
+      await sleep(1000);
+      // not good 😾
+      flushSync(() => {
+        router.replace("/");
+        router.refresh();
+      });
     };
+
     return {
       handleSubmit,
       inputAttributes,

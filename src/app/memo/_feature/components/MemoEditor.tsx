@@ -1,6 +1,6 @@
 "use client";
 
-import { Memo } from "@prisma/client";
+import { type Memo } from "@prisma/client";
 import TextareaAutosize from "react-textarea-autosize";
 import { ToolBar } from "./ToolBar";
 import { useEditor } from "../hooks/use-editor";
@@ -49,10 +49,7 @@ function EditMemoEditor({ memo }: { memo: Memo }) {
             />
           </div>
           <nav>
-            <ToolBar
-              onEdit={() => console.log("render")}
-              onDelete={stuff.handleDelete}
-            />
+            <ToolBar onEdit={stuff.handleEdit} onDelete={stuff.handleDelete} />
           </nav>
         </>
       )}
@@ -67,8 +64,14 @@ type EditorFormProps<T extends Memo | undefined = undefined> = {
 
 function EditorForm<T extends Memo | undefined = undefined>({
   className = "flex space-x-4",
+  children,
+  memo,
   ...props
 }: EditorFormProps<T>) {
-  const stuff = useEditor<T>(props.memo);
-  return <form className={className}>{props.children(stuff)}</form>;
+  const stuff = useEditor<T>(memo);
+  return (
+    <form {...props} className={className}>
+      {children(stuff)}
+    </form>
+  );
 }

@@ -2,6 +2,8 @@
 
 import { sleep } from "@/util/sleep";
 import { PrismaClient } from "@prisma/client";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 const db = new PrismaClient();
 
@@ -37,4 +39,17 @@ export async function fetchMemoById(id: number, option?: Option) {
   return memo;
 }
 
-export async function deleteMemoOnServer(formData: FormData) {}
+export async function deleteMemoOnServer(formData: FormData) {
+  const id = formData.get("id");
+  if (!id) {
+    throw new Error("");
+  }
+
+  await db.memo.delete({
+    where: {
+      id: Number(id),
+    },
+  });
+  revalidatePath("/");
+  redirect("/");
+}

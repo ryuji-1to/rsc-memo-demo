@@ -1,3 +1,4 @@
+import { deleteMemoOnServer } from "@/api/server";
 import { Memo } from "@prisma/client";
 import Link from "next/link";
 
@@ -6,10 +7,15 @@ const style = "drop-shadow-md py-1.5 rounded-lg font-semibold w-[72px]";
 export function MemoPreview({ memo }: { memo: Memo }) {
   return (
     <div className="space-y-4 ">
-      <div className="ml-auto flex justify-end space-x-2">
+      <form
+        action={deleteMemoOnServer}
+        className="flex justify-end ml-auto space-x-2"
+      >
+        <input type="hidden" name="id" value={memo.id} />
         <Link
           href={`/memo/edit/${memo.id}`}
           className={`block text-center bg-sky-50 text-sky-600 border border-sky-500 hover:bg-sky-100 ${style}`}
+          prefetch={false}
         >
           Edit
         </Link>
@@ -18,7 +24,7 @@ export function MemoPreview({ memo }: { memo: Memo }) {
         >
           Delete
         </button>
-      </div>
+      </form>
       <section className="drop-shadow-md bg-white p-6 rounded-lg min-h-[50vh]">
         <h2 className="text-3xl font-semibold text-[#252525]">{memo.title}</h2>
         <hr className="my-4" />
