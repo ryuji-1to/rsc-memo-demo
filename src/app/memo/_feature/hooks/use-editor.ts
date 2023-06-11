@@ -92,10 +92,8 @@ export function useEditor<T extends Memo | undefined = undefined>(
       });
       await sleep(1000);
       // not good 😾
-      flushSync(() => {
-        router.replace(`/memo/${memo.id}`);
-        router.refresh();
-      });
+      router.replace(`/memo/${memo.id}`);
+      router.refresh();
     };
 
     const handleDelete = async () => {
@@ -106,10 +104,8 @@ export function useEditor<T extends Memo | undefined = undefined>(
       });
       await sleep(1000);
       // not good 😾
-      flushSync(() => {
-        router.replace(`/`);
-        router.refresh();
-      });
+      router.replace(`/`);
+      router.refresh();
     };
 
     return {
@@ -132,10 +128,8 @@ export function useEditor<T extends Memo | undefined = undefined>(
       });
       await sleep(1000);
       // not good 😾
-      flushSync(() => {
-        router.replace("/");
-        router.refresh();
-      });
+      router.replace("/");
+      router.refresh();
     };
 
     return {

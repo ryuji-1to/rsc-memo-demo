@@ -19,24 +19,13 @@ export function ToolBar({ onSubmit, onDelete, onEdit }: Props) {
   const disableStyle =
     "disabled:bg-gray-300 disabled:border-gray-400 disabled:text-gray-400";
 
-  const [isPending, startTransition] = useTransition();
-
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    startTransition(() => (isEdit ? onEdit?.(e) : onSubmit?.(e)));
-  };
-
-  const handleDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    startTransition(() => onDelete?.(e));
-  };
-
   return (
     <div className="sticky flex flex-col mt-16 space-y-4 top-10">
       {(isNew || isEdit) && (
         <button
           type="button"
           className={`bg-emerald-50 text-emerald-600 border border-emerald-500 hover:bg-emerald-100 ${disableStyle} ${buttonStyle}`}
-          onClick={handleSubmit}
-          disabled={isPending}
+          onClick={isEdit ? onEdit : onSubmit}
         >
           Save
         </button>
@@ -45,8 +34,7 @@ export function ToolBar({ onSubmit, onDelete, onEdit }: Props) {
         <button
           type="button"
           className={`bg-red-50 border text-red-600 border-red-500 hover:bg-red-100 ${disableStyle} ${buttonStyle}`}
-          onClick={handleDelete}
-          disabled={isPending}
+          onClick={onDelete}
         >
           Delete
         </button>

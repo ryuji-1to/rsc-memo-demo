@@ -19,7 +19,7 @@ export default function RootLayout({
       <body className={`${inter.className} bg-slate-100`}>
         <div className="space-y-6">
           <Header />
-          <main className="max-w-2xl mx-auto p-4">{children}</main>
+          <main className="max-w-2xl p-4 mx-auto">{children}</main>
         </div>
         <Toaster position="top-right" reverseOrder={false} />
       </body>
